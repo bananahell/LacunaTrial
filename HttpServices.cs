@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 
 namespace LacunaTrial {
 
+  /// <summary> Class containing the communications with the servers and all the HTTP requests made. Basically the view of this project. </summary>
   class HttpServices {
 
     public static readonly string lacunaSite = "https://gene.lacuna.cc/";
@@ -10,26 +11,12 @@ namespace LacunaTrial {
     public static readonly string reqAccessTokPost = lacunaSite + "api/users/login";
     public static readonly string reqJobGet = lacunaSite + "api/dna/jobs";
 
-    /**
-     * Sends a Json with all the user information to Lacuna's website.
-     * @param client HttpClient global to the program that makes the HTTP connection.
-     * @param username User's username.
-     * @param email User's email.
-     * @param password User's password (ugh).
-     * @return POST response containing a code variable stating Success or Failure and a message variable explaining errors.
-     */
-
     /// <summary> Sends a Json with all the user information to Lacuna's website. </summary>
     /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
-    /// <param>
-    ///
-    /// </param>
-    /// <param>
-    ///
-    /// </param>
-    /// <param>
-    ///
-    /// </param>
+    /// <param name="username"> User's username. </param>
+    /// <param name="email"> User's email. </param>
+    /// <param name="password"> User's password (ugh). </param>
+    /// <returns> A DefaultResponse object containing a code for success and failure and a message explaining the conditions of a failure. </returns>
     public static async Task<DefaultResponse> SendUserData(HttpClient client, string username, string email, string password) {
 
       DefaultResponse userRes;
@@ -51,6 +38,11 @@ namespace LacunaTrial {
 
     }
 
+    /// <summary> Sends a Json with a user's information asking for an access token. </summary>
+    /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
+    /// <param name="username"> User's username. </param>
+    /// <param name="password"> User's password (ugh). </param>
+    /// <returns> A TokenUserResponse object containing a code for success and failure, a message explaining the conditions of a failure, and a generated access token valid for 2 minutes. </returns>
     public static async Task<TokenUserResponse> GetAccessToken(HttpClient client, string username, string password) {
 
       TokenUserResponse tokUserRes;
@@ -71,6 +63,10 @@ namespace LacunaTrial {
 
     }
 
+    /// <summary> Sends a request for a random job using an access token. </summary>
+    /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
+    /// <param name="accessTok"> Access token acquired previously. Valid for 2 minutes starting from acquisition. </param>
+    /// <returns> A JobRequestResponse object containing a code for success and failure, a message explaining the conditions of a failure, and a random job object. </returns>
     public static async Task<JobRequestResponse> GetJob(HttpClient client, string accessTok) {
 
       JobRequestResponse jobReqRes;
@@ -89,6 +85,12 @@ namespace LacunaTrial {
 
     }
 
+    /// <summary> Sends a Json with the answer to a decode job. </summary>
+    /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
+    /// <param name="jobId"> Job's id acquired from the acquisition of the job and used in the url of the HTTP request. </param>
+    /// <param name="accessTok"> Access token acquired previously. Valid for 2 minutes starting from acquisition. </param>
+    /// <param name="strandAnswer"> The answer to the job - a DNA strand represented by a string of nucleobases A T C G received by the job as a string of binary base 64. </param>
+    /// <returns> A DefaultResponse object containing a code for success and failure and a message explaining the conditions of a failure. </returns>
     public static async Task<DefaultResponse> SendDecodeJobAnswer(HttpClient client, string jobId, string accessTok, string strandAnswer) {
 
       DefaultResponse jobRes;
@@ -109,6 +111,12 @@ namespace LacunaTrial {
 
     }
 
+    /// <summary> Sends a Json with the answer to an encode job. </summary>
+    /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
+    /// <param name="jobId"> Job's id acquired from the acquisition of the job and used in the url of the HTTP request. </param>
+    /// <param name="accessTok"> Access token acquired previously. Valid for 2 minutes starting from acquisition. </param>
+    /// <param name="strandEncodedAnswer"> The answer to the job - a DNA strand represented by a string of binary base 64 received by the job as a string of nucleobases A T C G. </param>
+    /// <returns> A DefaultResponse object containing a code for success and failure and a message explaining the conditions of a failure. </returns>
     public static async Task<DefaultResponse> SendEncodeJobAnswer(HttpClient client, string jobId, string accessTok, string strandEncodedAnswer) {
 
       DefaultResponse jobRes;
@@ -129,6 +137,12 @@ namespace LacunaTrial {
 
     }
 
+    /// <summary> Sends a Json with the answer to a check gene job. </summary>
+    /// <param name="client"> HttpClient global to the program that makes the HTTP connection. </param>
+    /// <param name="jobId"> Job's id acquired from the acquisition of the job and used in the url of the HTTP request. </param>
+    /// <param name="accessTok"> Access token acquired previously. Valid for 2 minutes starting from acquisition. </param>
+    /// <param name="isActivatedAnswer"> The answer to the job - whether if the gene received is activated in the DNA strand received. </param>
+    /// <returns> A DefaultResponse object containing a code for success and failure and a message explaining the conditions of a failure. </returns>
     public static async Task<DefaultResponse> SendCheckGeneJobAnswer(HttpClient client, string jobId, string accessTok, bool isActivatedAnswer) {
 
       DefaultResponse jobRes;
