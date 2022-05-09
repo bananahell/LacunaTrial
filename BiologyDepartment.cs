@@ -86,6 +86,16 @@ namespace LacunaTrial {
       strand = DecodeStrand(strandEncoded);
       gene = DecodeStrand(geneEncoded);
 
+      // Checks if the strand is the template DNA strand, and if not, get template
+      if (strand.Substring(0, 3) != "CAT") {
+        strand = strand.Replace('C', 'X');
+        strand = strand.Replace('G', 'C');
+        strand = strand.Replace('X', 'G');
+        strand = strand.Replace('A', 'X');
+        strand = strand.Replace('T', 'A');
+        strand = strand.Replace('X', 'T');
+      }
+
       // Checks if a little more than 50% of the gene is present throughout the whole strand, returning true if present.
       for (int i = 0; i < (gene.Length - 1) / 2; i++) {
         genePiece = gene.Substring(0 + i, (gene.Length / 2) + 1);
