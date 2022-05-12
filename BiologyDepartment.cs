@@ -97,7 +97,7 @@ namespace LacunaTrial {
       }
 
       // Checks if a little more than 50% of the gene is present throughout the whole strand, returning true if present.
-      for (int i = 0; i < (gene.Length - 1) / 2; i++) {
+      for (int i = 0; i < (gene.Length) / 2; i++) {
         genePiece = gene.Substring(0 + i, (gene.Length / 2) + 1);
         if (strand.Contains(genePiece)) {
           return true;
