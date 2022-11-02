@@ -32,5 +32,4 @@ The check gene job sends a strand of DNA and a gene, both encoded in base 64, an
 ## The result
 
 Each of these jobs return information in the form of a json object containing whether if the job was answered succesfully or not. All of my trials were succesfull. Now is for hoping that I actually get the job. I'm starving.  
-
-PS: I didn't get it and ended up starving =)
+I have corrected some warnings from HttpServices.cs and added a functionality in main that makes multiple requisitions. Maybe I'll stop starving now?  
